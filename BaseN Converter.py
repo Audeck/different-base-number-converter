@@ -38,7 +38,7 @@ def convertNumbers(originalBase, originalNumber, finalBase):
 
         for x in numList: # Adding sequentially x*base^(index in original number from the left) -> converts the number to base 10
             helpNum += x*(oBase**(len(numList) - numIndex))
-            numIndex += 1 # numIndex++
+            numIndex += 1
     else: # Set in case of base 10
         helpNum = int(oNum)
 

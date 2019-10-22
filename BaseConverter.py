@@ -55,7 +55,7 @@ def convertNumbers(originalBase, originalNumber, finalBase):
 
     for x in numList:
         if x > 9:
-            numListS.append(string.ascii_uppercase[x - 8])
+            numListS.append(string.ascii_uppercase[x - 10])
         else:
             numListS.append(str(x))
 

@@ -3,13 +3,13 @@ import string
 
 # TODO: Comment
 
-def convertNumbers(originalBase, originalNumber, finalBase):
+def fromBaseToBase(originalBase, originalNumber, finalBase):
     numListS = [] # String number list
     numList = [] # Integer number list
     helpNum = 0 # Helper/auxiliary number in decimal (for logarithms and other operations)
     numIndex = 1 # Index for helping iterating over the number list
-    oBase = originalBase # Orignal base number system
-    oNum = originalNumber # Original number
+    oBase = originalBase # Original base number system
+    oNum = string(originalNumber) # Original number
     fBase = finalBase # Final base number system
     fNum = "" # Final number
 
@@ -61,10 +61,11 @@ def convertNumbers(originalBase, originalNumber, finalBase):
 
     fNum = fNum.join(numListS)
 
-    return "Your number {} in base {} is {} in base {}.".format(oNum, oBase, fNum, fBase)
+    return int(fNum)
 
 originalBase = int(input("What base number system are you converting from (2 for binary, 3 for terniary, etc.)? "))
 originalNumber = input("What is the number you want to convert? ")
 finalBase = int(input("What base number system are you converting to (2 for binary, 3 for terniary, etc.)? "))
+finalNumber = fromBaseToBase(originalBase, originalNumber, finalBase)
 
-print(convertNumbers(originalBase, originalNumber, finalBase))
+print("Your number {} (originally in base {}) is {} in base {}.".format(originalNumber, originalBase, finalNumber, finalBase))

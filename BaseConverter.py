@@ -1,72 +1,68 @@
 import math
 import string
 
-# TODO: Comment
 
-def fromBaseToBase(originalBase, originalNumber, finalBase):
-    numListS = []  # String number list
-    numList = []  # Integer number list
-    helpNum = 0  # Helper/auxiliary number in decimal (for logarithms and other operations)
-    numIndex = 1  # Index for helping iterating over the number list
-    oBase = originalBase  # Original base number system
-    oNum = string(originalNumber)  # Original number
-    fBase = finalBase  # Final base number system
-    fNum = ""  # Final number
+def fromBaseToBase(original_base, original_number, final_base):
+    number_string_list = []
+    number_list = []
+    helper = 0  # Helper/auxiliary number in decimal (used for logarithms and other operations)
+    number_index = 1
+    original_base = original_base
+    original_number = str(original_number)
+    final_base = final_base
+    final_number = ""
 
     ## Preliminary checks
-    if oBase > 25:
+    if original_base > 25:
         return "Sorry, this program doesn't support Base 26+; maybe in the future though!"
-    if fBase > 25:
+    if final_base > 25:
         return "Sorry, this program doesn't support Base 26+; maybe in the future though!"
-    if oNum == 0:
-        return "Your number {} in base {} is {} in base {}.".format(oNum, oBase, oNum, fBase)
+    if original_number == 0 or original_base == final_base:
+        return "Your number {} in base {} is {} in base {}.".format(original_number, original_base, original_number, final_base)
 
     ## Logic
-    if oBase != 10:  # If the number is already in base10, skip this
-        for x in oNum:  # Iterating over the input number string and appending (to keep order) it to the string number list
-            numListS.append(x)
-
-        for x in numListS:  # Convert numbers to base 10 numbers (and add them to numList)
+    if original_base != 10:
+        for x in original_number:
             if x in string.ascii_uppercase:
-                numList.append(int(string.ascii_uppercase.index(x)) + 10)
+                number_list.append(int(string.ascii_uppercase.index(x)) + 10)
             elif x in string.ascii_lowercase:
-                numList.append(int(string.ascii_lowercase.index(x)) + 10)
+                number_list.append(int(string.ascii_lowercase.index(x)) + 10)
             else:
-                numList.append(int(x))
+                number_list.append(int(x))
 
-        for x in numList:  # Checking if the input number is valid in the selected number system
-            if x >= oBase:
+        for x in number_list:  # Checking if the input number is valid in the selected number system
+            if x >= original_base:
                 return "Sorry, your number doesn't seem to be supported by the number system you selected."
 
-        for x in numList:  # Adding sequentially x*base^(index in original number from the left) -> converts the number to base 10
-            helpNum += x*(oBase**(len(numList) - numIndex))
-            numIndex += 1
-            
-    else: # Set in case of base 10
-        helpNum = int(oNum)
+            helper += x*(original_base**(len(number_list) - number_index))    # Adding sequentially x*base^(character index) -> converts the number to base 10
+            number_index += 1
 
-    numListS = []  # Empty lists to reuse
-    numList = []
-    tLog = int(math.log(helpNum, fBase)) # First logarithm value
+    else:  # In case of base 10
+        helper = int(original_number)
 
-    while tLog >= 0:  # Very flimsy
-        numList.append(int(helpNum/(fBase**tLog)))
-        helpNum -= int(helpNum/(fBase**tLog))*(fBase**tLog)
-        tLog -= 1
+    number_string_list = []  # Empty lists to reuse
+    number_list = []
+    temp_log = int(math.log(helper, final_base))  # First logarithm value
 
-    for x in numList:
+    while temp_log >= 0:  # Very flimsy
+        number_list.append(int(helper/(final_base**temp_log)))
+        helper -= int(helper/(final_base**temp_log))*(final_base**temp_log)
+        temp_log -= 1
+
+    for x in number_list:
         if x > 9:
-            numListS.append(string.ascii_uppercase[x - 10])
+            number_string_list.append(string.ascii_uppercase[x - 10])
         else:
-            numListS.append(str(x))
+            number_string_list.append(str(x))
 
-    fNum = fNum.join(numListS)
+    final_number = final_number.join(number_string_list)
 
-    return int(fNum)
+    return final_number
 
-originalBase = int(input("What base number system are you converting from (2 for binary, 3 for terniary, etc.)? "))
-originalNumber = input("What is the number you want to convert? ")
-finalBase = int(input("What base number system are you converting to (2 for binary, 3 for terniary, etc.)? "))
-finalNumber = fromBaseToBase(originalBase, originalNumber, finalBase)
 
-print("Your number {} (originally in base {}) is {} in base {}.".format(originalNumber, originalBase, finalNumber, finalBase))
+original_base = int(input("What base number system are you converting from (2 for binary, 3 for terniary, etc.)? "))
+original_number = input("What is the number you want to convert? ")
+final_base = int(input("What base number system are you converting to (2 for binary, 3 for terniary, etc.)? "))
+finalNumber = fromBaseToBase(original_base, original_number, final_base)
+
+print("Your number {} (originally in base {}) is {} in base {}.".format(original_number, original_base, finalNumber, final_base))

@@ -60,9 +60,10 @@ def fromBaseToBase(original_base, original_number, final_base):
     return final_number
 
 
-original_base = int(input("What base number system are you converting from (2 for binary, 3 for terniary, etc.)? "))
-original_number = input("What is the number you want to convert? ")
-final_base = int(input("What base number system are you converting to (2 for binary, 3 for terniary, etc.)? "))
-finalNumber = fromBaseToBase(original_base, original_number, final_base)
+if __name__ == "__main__":
+    original_base = int(input("What base number system are you converting from (2 for binary, 3 for terniary, etc.)? "))
+    original_number = input("What is the number you want to convert? ")
+    final_base = int(input("What base number system are you converting to (2 for binary, 3 for terniary, etc.)? "))
+    finalNumber = fromBaseToBase(original_base, original_number, final_base)
 
-print("Your number {} (originally in base {}) is {} in base {}.".format(original_number, original_base, finalNumber, final_base))
+    print("Your number {} (originally in base {}) is {} in base {}.".format(original_number, original_base, finalNumber, final_base))
